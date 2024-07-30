@@ -1,11 +1,8 @@
-<!--https://pages.github.com/ -->
-<!--Be sure to also upload geojson file(s) to the github repository on which the website is based-->
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Load data from an external GeoJSON file</title>
+<title>Add a vector tile source</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.js"></script>
@@ -16,40 +13,41 @@ body { margin: 0; padding: 0; }
 </head>
 <body>
 <div id="map"></div>
-
 <script>
-	// "Cross-Origin Request Blocked" error in webpage console appears to be related to ad blocker (e.g. UBlockOrigin)
-	
 	mapboxgl.accessToken = 'pk.eyJ1IjoiYWRhcHRnZW8iLCJhIjoiY2xwdmIwMGlyMDNkZzJrcGsybXh1emFpMSJ9.qeCqoOvHTXJIKF4q80v4CA';
     const map = new mapboxgl.Map({
-        container: 'map', // container ID
+        container: 'map',
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        style: 'mapbox://styles/mapbox/satellite-v9', // style URL
-        projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator
-        zoom: 2, // starting zoom
-        center: [108, 4] // // starting center in [lng, lat]
+        style: 'mapbox://styles/mapbox/light-v11',
+        zoom: 13,
+        center: [-122.447303, 37.753574]
     });
 
-    map.on('style.load', () => {
-        map.setFog({}); // Set the default atmosphere style
-    });
-
-	map.on('load', function () {
-	    map.addSource('my-tileset', {
-	        type: 'vector',
-	        url: 'mapbox://adaptgeo.c8q1619p' // Replace with your tileset URL
-	    });
-	
-	    map.addLayer({
-	        'id': 'my-layer',
-	        'type': 'fill',
-	        'source': 'my-tileset',
-	        'layout': {},
-	        'paint': {
-	            'fill-color': '#888888',
-	            'fill-opacity': 0.4
-            }
+    map.on('load', () => {
+        map.addSource('mapbox-terrain', {
+            type: 'vector',
+            // Use any Mapbox-hosted tileset using its tileset id.
+            // Learn more about where to find a tileset id:
+            // https://docs.mapbox.com/help/glossary/tileset-id/
+            url: 'mapbox://mapbox.mapbox-terrain-v2'
         });
+        map.addLayer(
+            {
+                'id': 'terrain-data',
+                'type': 'line',
+                'source': 'mapbox-terrain',
+                'source-layer': 'contour',
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                'paint': {
+                    'line-color': '#ff69b4',
+                    'line-width': 1
+                }
+            },
+            'road-label-simple' // Add layer below labels
+        );
     });
 </script>
 
