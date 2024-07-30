@@ -34,23 +34,20 @@ body { margin: 0; padding: 0; }
         map.setFog({}); // Set the default atmosphere style
     });
 
-    map.on('load', () => {
-        map.addSource('earthquakes', {
-            type: 'geojson',
-            // Use a URL for the value for the `data` property.
-            data: 'mapbox://adaptgeo.c8q1619p'
-			//data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson'
-        });
-
-        map.addLayer({
-            'id': 'earthquakes-layer',
-            'type': 'circle',
-            'source': 'earthquakes',
-            'paint': {
-                'circle-radius': 4,
-                'circle-stroke-width': 2,
-                'circle-color': 'red',
-                'circle-stroke-color': 'white'
+	map.on('load', function () {
+	    map.addSource('my-tileset', {
+	        type: 'vector',
+	        url: 'mapbox://adaptgeo.c8q1619p' // Replace with your tileset URL
+	    });
+	
+	    map.addLayer({
+	        'id': 'my-layer',
+	        'type': 'fill',
+	        'source': 'my-tileset',
+	        'layout': {},
+	        'paint': {
+	            'fill-color': '#888888',
+	            'fill-opacity': 0.4
             }
         });
     });
