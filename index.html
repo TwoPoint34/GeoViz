@@ -1,3 +1,6 @@
+<!--https://pages.github.com/ -->
+<!--Be sure to also upload geojson file(s) to the github repository on which the website is based-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,10 +35,11 @@ body { margin: 0; padding: 0; }
     });
 
     map.on('load', () => {
-        map.addSource('earthquakes', {
+        map.addSource('Downtown Ypsilanti Parcels', {
             type: 'geojson',
             // Use a URL for the value for the `data` property.
-            data: 'C:/Users/Owner/Desktop/AGgeovizGitHub/AGgeoviz.github.io/geojson_rewound_test.geojson'
+            data: 'mapbox://adaptgeo.c8q1619p'
+			//data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson'
         });
 
         map.addLayer({
