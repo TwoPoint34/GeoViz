@@ -29,26 +29,21 @@ body { margin: 0; padding: 0; }
             // Use any Mapbox-hosted tileset using its tileset id.
             // Learn more about where to find a tileset id:
             // https://docs.mapbox.com/help/glossary/tileset-id/
-            url: 'mapbox://mapbox.mapbox-terrain-v2'
+            //url: 'mapbox://mapbox.mapbox-terrain-v2'
+			url: 'mapbox://adaptgeo.c8q1619p'
         });
-        map.addLayer(
-            {
-                'id': 'terrain-data',
-                'type': 'line',
-                'source': 'mapbox-terrain',
-                'source-layer': 'contour',
-                'layout': {
-                    'line-join': 'round',
-                    'line-cap': 'round'
-                },
-                'paint': {
-                    'line-color': '#ff69b4',
-                    'line-width': 1
-                }
-            },
-            'road-label-simple' // Add layer below labels
-        );
-    });
+
+		map.addLayer({
+			'id': 'fill-layer',
+			'type': 'fill',
+			'source': 'geojson-source',
+			'paint': {
+				'fill-color': '#888888',
+				'fill-opacity': 0.4,
+				'fill-outline-color': '#000000'
+				
+				);
+			});
 </script>
 
 </body>
