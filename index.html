@@ -22,27 +22,29 @@ body { margin: 0; padding: 0; }
         zoom: 13,
         center: [-122.447303, 37.753574]
     });
+			
+	map.on('load', () => {
+		// Add the vector source
+		map.addSource('mapbox-terrain', {
+			'type': 'vector',
+			'url': 'mapbox://adaptgeo.c8q1619p' // Replace with your actual vector tileset ID
+		});
 
-    map.on('load', () => {
-        map.addSource('mapbox-terrain', {
-            type: 'vector',
-            // Use any Mapbox-hosted tileset using its tileset id.
-            // Learn more about where to find a tileset id:
-            // https://docs.mapbox.com/help/glossary/tileset-id/
-            //url: 'mapbox://mapbox.mapbox-terrain-v2'
-			url: 'mapbox://adaptgeo.c8q1619p'
-        });
-
+		// Add a layer from the vector source
 		map.addLayer({
 			'id': 'fill-layer',
 			'type': 'fill',
-			'source': 'geojson-source',
+			'source': 'mapbox-terrain', // This should match the source ID added above
+			'source-layer': 'geojson_rewound_test-0aavu2', // Specify the source layer within the vector tileset
 			'paint': {
 				'fill-color': '#888888',
 				'fill-opacity': 0.4,
 				'fill-outline-color': '#000000'
-				
-			}});
+			}
+		});
+	});
+			
+			
 </script>
 
 </body>
